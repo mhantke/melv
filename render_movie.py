@@ -52,7 +52,7 @@ H_D_sm = cache["H_D_sm"]
 
 if empty_cache:
     print "Loading MelV densities."
-    M = mbr.load_melv_densities(blur=2.0)
+    M = mbr.load_melv_densities_2x2x2(blur=2.0)
     z_angle = 2*np.pi/10.+np.pi/8.-0.015*2*np.pi
     rotation = rot.Rotation(formalism="quaternion", values=rot.quat(z_angle,1,0,0))
     cache["M_rot"] = mbr.rotate_map(M, rotation)

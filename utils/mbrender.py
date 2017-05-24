@@ -19,7 +19,20 @@ def load_melv_densities(downsample=2, blur=2.5):
     with h5py.File("./data/MelV_EM.h5","r") as f:
         M = np.asarray(f["data"], dtype="float64")
     # Downsample
-    M = M[::downsample,::downsample,::downsample] 
+    if downsample is not None:
+        M = M[::downsample,::downsample,::downsample] 
+    # Blur
+    if blur is not None:
+        M = scipy.ndimage.gaussian_filter(M, blur)
+    return M
+
+def load_melv_densities_2x2x2(blur=2.5):
+    """
+    Load cryo EM reconstruction model.
+    """
+    # Read from file
+    with h5py.File("./data/MelV_EM_2x2x2.h5","r") as f:
+        M = np.asarray(f["data"], dtype="float64")
     # Blur
     M = scipy.ndimage.gaussian_filter(M, blur)
     return M
